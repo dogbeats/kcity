@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WebGL Demo</title>
+    <!--<link rel="stylesheet" href="../webgl.css" type="text/css">-->
+	<style>
+	#glcanvas {
+		position:absolute;
+		top: 0;
+		left: 0;
+	}
+	.glcanvascontainer{
+	height: 500px;
+	}
+	</style>
+	<script type="text/javascript" src="objects.js"></script>
+	<script type="text/javascript" src="functions.js"></script>
+	<script type="text/javascript" src="temp.js"></script>
+  </head>
+
+  <body>
+  <div class="glcanvascontainer">
+    <canvas id="glcanvas" width="640" height="480" style=""></canvas>
+	</div>
+		<p>Mouse X: <span id="mouseX"></span></p>
+		<p>Mouse Y: <span id="mouseY"></span></p>
+		<p>Pixel Colour: <span id="pixelColour"></span></p>
+  </body>
+
+  <script type="text/javascript" src="gl-matrix.js"></script>
+  <script type="text/javascript" src="render.js"></script>
+</html>
