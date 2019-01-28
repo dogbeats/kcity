@@ -1,8 +1,8 @@
 ### kcity
-##Back-End
-#NOTE: Remember to replace placeholders of sensitive information with necessary credentials etc.
+## Back-End
+# NOTE: Remember to replace placeholders of sensitive information with necessary credentials etc.
 
-#28th January 2019:
+# 28th January 2019:
 NEW:
 -Imported existing project files into branch
 
