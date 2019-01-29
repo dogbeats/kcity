@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 		}
 		else
 		{
-			header('Location: login.php?p='.$pswd);
+			header('Location: login.php?m=1');
 		}
 		
 	}
