@@ -16,18 +16,28 @@
 	</style>
 	<script type="text/javascript" src="objects.js"></script>
 	<script type="text/javascript" src="functions.js"></script>
-	<script type="text/javascript" src="temp.js"></script>
   </head>
 
   <body>
   <div class="glcanvascontainer">
     <canvas id="glcanvas" width="640" height="480" style=""></canvas>
 	</div>
+		<p>Rotation: <span id="rotationX"></span>,<span id="rotationY"></span>,<span id="rotationZ"></span></p>
+		<p>Player X: <span id="playerX"></span>, Y: <span id="playerY"></span>, Z: <span id="playerZ"></span>
 		<p>Mouse X: <span id="mouseX"></span></p>
 		<p>Mouse Y: <span id="mouseY"></span></p>
+		<p>GLMouse X: <span id="GLmouseX"></span></p>
+		<p>GLMouse Y: <span id="GLmouseY"></span></p>
 		<p>Pixel Colour: <span id="pixelColour"></span></p>
+		<p>Collision object ID: <span id="collisionID"></span></p>
+		<p>Collision Update Coord ID: <span id="collisionCoord"></span></p>
+		<p>Temporary Details: <span id="tempDetails"></span></p>
+		<p>Obj X: <span id="objX"></span>, Y: <span id="objY"></span>, Z: <span id="objZ"></span>, C: <span id="objC"></span></p> 
+		<p>Collision boolean: <span id="collisionBool"></span>, dot1: <span id="dot1"></span>, dot2: <span id="dot2"></span></p>
+		<p>X: <span id="collisionX"></span>, Y: <span id="collisionY"></span>, Z: <span id="collisionZ"></span>, t: <span id="collisionT"></span></p> 
   </body>
 
   <script type="text/javascript" src="gl-matrix.js"></script>
+  <script type="text/javascript" src="temp.js"></script>
   <script type="text/javascript" src="render.js"></script>
 </html>

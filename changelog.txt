@@ -1,0 +1,21 @@
+2019-03-28
+-Changed method of object loading to be from JSON
+
+2019-03-24
+-Camera follows player
+-Introduced basic player "login" functionality 
+
+2019-03-23
+-Modified collision (incomplete)
+
+2019-03-16
+-Improved Collision
+
+2019-02-17
+-Improved handling of movement
+-Implemented basic god mode for testing purposes
+-Implemented a basic linear jump which will need to be updated in future
+-FIXED: Error with mouse->camera coordinate transformation where the X value was incorrect
+
+2019-02-16
+-Added basic movement for a player such that they do not go outside the designated areas (this will be improved upon in future)
