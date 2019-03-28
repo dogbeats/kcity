@@ -18,10 +18,10 @@ if (!isSet($_SESSION['userid']))
 	<div id="sign-up-box">
 		<h1>Create your account:</h1>
 		<form name="register" method="POST" action="register.php">
-			<input name="username" type="text" placeholder="Username" required></input>
-			<input name="password" type="password" placeholder="Password" required></input>
-			<input name="confirm" type="password" placeholder="Confirm Password" required></input>
-			<input name="email" type="text" placeholder="Email" required></input>
+			<input name="username" type="text" autocomplete="off" autofocus placeholder="Username" required></input>
+			<input name="password" type="password" autocomplete="off" placeholder="Password" required></input>
+			<input name="confirm" type="password" autocomplete="off" placeholder="Confirm Password" required></input>
+			<input name="email" type="text" autocomplete="off" placeholder="Email" required></input>
 			<input type="submit" value="Create Account"></input>
 		</form>
 		<?php 

@@ -5,39 +5,52 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 	if(isSet($_POST['username']) && isSet($_POST['password']))
 	{
 		session_start();
-		$host = '<DBHOST>';
-		$db = '<DBNAME>';
-		$user = '<DBUSER>'; 
-		$pass = '<DBPASSWORD>';
-		$charset = 'utf8';
-		//Will move all of the above into a separate config file eventually
-
-		$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-		$pdo = new PDO($dsn,$user,$pass);
-		$stmt = $pdo->prepare("SELECT * FROM users WHERE LOWER(username)=:username");
-		$stmt->execute(['username' => strtolower($_POST['username'])]);
-		$result = $stmt->fetch();
-		if (!empty($result))
+		require("../dbconfig.php");
+		
+		if(isSet($_POST['method']))
 		{
-			if (password_verify($_POST['password'], $result['password']))
+			$isAjax = true;
+		}
+		
+		if ($isDBConnected == true)
+		{
+			$stmt = $pdo->prepare("SELECT * FROM users WHERE LOWER(username)=:username");
+			$stmt->execute(['username' => strtolower($_POST['username'])]);
+			$result = $stmt->fetch();
+			if (!empty($result))
 			{
-				$_SESSION['userid'] = $result['userID'];
-				$_SESSION['username'] = $result['username'];
-				$_SESSION['rank'] = $result['rank'];
-				header('Location: index.php');
+				if (password_verify($_POST['password'], $result['password']))
+				{
+					$_SESSION['userid'] = $result['userID'];
+					$_SESSION['username'] = $result['username'];
+					$_SESSION['rank'] = $result['rank'];
+					if ($result['isValidated'] == false)
+					{
+						$_SESSION['isValidated'] = $result['isValidated'];
+					}
+					header(($isAjax ? 'Content-type: application/JSON' : 'Location: index.php'));
+					echo 'success';
+				}
+				else 
+				{
+					header(($isAjax ? 'Content-type: application/JSON' : 'Location: login.php?m=3'));
+					echo 'Incorrect password.';
+				}
 			}
 			else 
 			{
-				header('Location: login.php');
+				header(($isAjax ? 'Content-type: application/JSON' : 'Location: login.php?m=1'));
+				echo 'User does not exist.';
 			}
 		}
-		else
+		else 
 		{
-			header('Location: login.php?m=1');
+			header(($isAjax ? 'Content-type: application/JSON' : 'Location: login.php?m=2'));
+			echo 'There was an error connecting to the server. Please try again later.';
 		}
 		
 	}
-	else if(isSet($_POST['logout']))
+	else if(isSet($_POST['logout'])) 
 	{
 		session_start();
 		unset($_SESSION['userid']); 
@@ -52,3 +65,5 @@ else
 	header('Location: login.php');
 	//User doesn't need to access this page. Send them packing.
 }
+
+?>

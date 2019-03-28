@@ -1,6 +1,5 @@
 var latency;
-var mainSocket;
-var playerTranslation = [[0,0],[0,0]]; 
+let MessageHandler;
 function getJSON(path, ret)
 { 
   var file = new XMLHttpRequest();
@@ -17,49 +16,103 @@ function getJSON(path, ret)
 
 window.onload = function()
 {
-	mainSocket = new WebSocket("<SERVER_LOCATION>");
-	mainSocket.onopen = function(opening)
-	{
-		mainSocket.send(constructMsg("heartbeat", "ping"));
-	}
-	
-	mainSocket.onclose = function(closing)
-	{
-		if (closing.code == 1006)
+	MessageHandler = new EventHandler();
+	MessageHandler.addEventListener('accepted', function(e){
+		console.log("Accepted event handler");
+	});
+	//function init(){
+		var players = [];
+		var playerTranslation = [[0,0],[0,0]]; 
+		
+		var mainSocket = new WebSocket(<SERVERIP>);
+
+		mainSocket.onopen = function(opening)
 		{
-			console.log("Server unavailable");
+			players.push(new Player(document.getElementById('id').innerText, document.getElementById('username').innerText, document.getElementById('rank').innerText));
+			//Need a new way of transferring player data to the server
+			mainSocket.send(constructMsg("connection", players[0]));
+			mainSocket.send(constructMsg("heartbeat", "ping"));
 		}
-		else 
+		
+		mainSocket.onclose = function(closing)
 		{
-			console.log('Connection lost');
+			if (closing.code == 1006)
+			{
+				console.log("Server unavailable");
+			}
+			else 
+			{
+				console.log('Connection lost');
+			}
+			players = [];
 		}
-	}
-	
-	mainSocket.onmessage = function(message)
-	{
-		if (isJSON(message.data)) //Generic statement, however will helped to identify position parameters - eventually JSON data will include request/message type.
+		
+		mainSocket.onmessage = function(message)
 		{
-			data = JSON.parse(message.data)
-			console.log(data);
-			if (data.messageType == "heartbeat")
+			if (isJSON(message.data)) 
 			{
-				console.log("Received a ping: %s ms.", (Date.now() - latency)/2);
-			}
-			else if (data.messageType == "accepted")
-			{
-				console.log(data.contents);
-			}
-			else if (data.messageType == "info")
-			{
-				//Will be used to retrieve user info.
-			}
-			else if (data.messageType == "move")
-			{
-				playerTranslation[1][0] = data.contents.newPosY;
-				playerTranslation[1][1] = data.contents.newPosX;
+				data = JSON.parse(message.data)
+				MessageHandler.dispatchEvent(data.messageType, data.contents);
+				console.log(data);
+				if (data.messageType == "heartbeat")
+				{
+					console.log("Received a ping: %s ms.", (Date.now() - latency)/2);
+				}
+				else if (data.messageType == "accepted")
+				{
+					console.log(data.contents);
+				}
+				else if (data.messageType == "info")
+				{
+				}
+				else if (data.messageType == "move")
+				{
+					playerTranslation[1][0] = data.contents.newPosY;
+					playerTranslation[1][1] = data.contents.newPosX;
+				}
+				else if (data.messageType == "chat")
+				{
+					if (data.contents.sender != players[0].getName())
+					{
+						document.getElementById('chat-log').value = document.getElementById('chat-log').value + "\r\n" + data.contents.sender + " says: " + data.contents.message;
+					}
+				}
 			}
 		}
-	}
+		
+		function checkStatus()
+		{
+			console.log("Checking status");
+			clearTimeout(timeout);
+			
+			
+			timeout = setTimeout(function(){
+				mainSocket.close();
+				clearInterval(heartbeat);
+			}, 30000);
+		}
+		
+		document.getElementById('chat-box').addEventListener('keydown', function(e){
+			if (e.key == "Enter")
+			{
+				var info = {
+					sender: players[0].getName(),
+					message: this.value
+				};
+				mainSocket.send(constructMsg("chat", info));
+				if (document.getElementById('chat-log').value == "" || document.getElementById('chat-log').value == null)
+				{
+					document.getElementById('chat-log').value = info.sender + " says: " + info.message;
+				}
+				else 
+				{
+					document.getElementById('chat-log').value = document.getElementById('chat-log').value + "\r\n" + info.sender + " says: " + info.message;
+				}
+				this.value = "";
+			}
+		}, false);
+	//}
+	//init();
 }
 
 function isJSON(data) {

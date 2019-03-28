@@ -1,0 +1,211 @@
+body 
+{
+	font-family: "Segoe UI";
+}
+
+html,body
+{
+	height: 100%;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+}
+
+header 
+{
+	background-color: #222;
+	display: block;
+	height: 60px;
+}
+
+#header-wrap 
+{
+	width: 80%;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#project-name, #user-box
+{
+	color: white;
+}
+
+#project-name
+{
+	padding-left: 0em;
+}
+
+#project-name a 
+{
+	color: inherit;
+	text-decoration: none;
+}
+
+#user-box
+{
+	padding-right: 0em;
+}
+
+#user-box, #menu-hover
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	height: 60px;
+}
+
+#menu-hover 
+{
+	width: 20px;
+}
+
+#user-name p, #project-name h2
+{
+	padding: 0.5em;
+	margin: 0;
+}
+
+#user-name p
+{
+	display: inline-block;
+}
+
+.expander
+{
+	display: inline-block;
+	border: solid white;
+	border-width: 0px 3px 3px 0px;
+	transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+	padding: 3px;
+}
+
+.expander:hover
+{
+	border-color: #ddd;
+}
+
+#menu-hover:hover #user-menu
+{
+	display: block;
+}
+
+#user-menu 
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 100%;
+	background-color: black;
+	display: none;
+}
+
+#user-menu li 
+{
+	padding: 1em;
+}
+
+#user-menu li a 
+{
+	color: inherit;
+	text-decoration: none;
+}
+
+#chat-area 
+{
+	width: 500px;
+}
+
+#chat-log, #chat-box 
+{
+	width: 100%;
+}
+
+#chat-log 
+{
+	height: 200px;
+}
+
+main 
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+#settings-area 
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 600px;
+	height: 600px;
+	border: 1px solid black;
+	margin: auto;
+	background: #eee;
+}
+
+#settings-menu 
+{
+	background: #444;
+	width: 30%;
+	height: 100%;
+}
+
+#settings-change 
+{
+	width: 70%;
+	height: 100%;
+	margin-top: 1px;
+}
+
+#settings-change form 
+{
+	width: 90%;
+	margin: auto;
+}
+
+#settings-change .settings-input 
+{
+	width: 70%;
+	display: block;
+	padding: 0.5em;
+	font-size: 15px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#settings-menu ul 
+{
+	padding: 0;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	list-style-type: none;
+	/*border-top: 3px solid #222;
+	border-bottom: 3px solid #222;*/
+}
+
+#settings-menu ul li 
+{
+	font-weight: 600;
+	color: #eee;
+	padding: 0.3em;
+	font-size: 18px;
+}
+
+#settings-menu ul li:hover 
+{
+	cursor: pointer;
+}
+
+#settings-menu ul .active 
+{
+	background-color: white;
+	color: #000;
+}
