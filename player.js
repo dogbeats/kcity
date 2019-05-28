@@ -8,10 +8,15 @@ class Player {
 		this._rank = rank;
 	}
 	
-	getName(name)
+	setName(name)
 	{
 		this._name = name;
-	}
+    }
+    
+    getName()
+    {
+        return this._name;
+    }
 	
 	setSID(sid)
 	{
